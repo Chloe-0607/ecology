@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>曾文溪口：這片土地，被誰看見？</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --mud: #8B7355;
+  --reed: #C4A882;
+  --tide: #4A7C7E;
+  --sky: #B8D4D8;
+  --soil: #2C1810;
+  --paper: #F7F3EC;
+  --ink: #1A1612;
+  --muted: #6B5E52;
+  --border: rgba(139,115,85,0.2);
+  --border-strong: rgba(139,115,85,0.4);
+  --serif: 'Noto Serif TC', serif;
+  --sans: 'Noto Sans TC', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.75;
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(247,243,236,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 0.5px solid var(--border-strong);
+  padding: 0 2rem;
+  display: flex; align-items: center; gap: 0;
+}
+
+.nav-logo {
+  font-family: var(--serif); font-size: 14px; font-weight: 600;
+  color: var(--mud); padding: 1rem 1rem 1rem 0;
+  border-right: 0.5px solid var(--border); margin-right: 1rem;
+  white-space: nowrap; flex-shrink: 0;
+}
+
+.nav-modes {
+  display: flex; gap: 0; flex: 1;
+}
+
+.mode-btn {
+  padding: 0.7rem 1.1rem; background: none; border: none;
+  font-family: var(--sans); font-size: 13px; font-weight: 400;
+  color: var(--muted); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s; white-space: nowrap;
+}
+.mode-btn:hover { color: var(--ink); }
+.mode-btn.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--mud); }
+
+/* ── HERO ── */
+.hero {
+  padding: 5rem 2rem 4rem;
+  max-width: 860px; margin: 0 auto;
+  position: relative;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1.25rem;
+  border-bottom: 0.5px solid var(--border-strong); padding-bottom: 0.4rem;
+}
+
+.hero-title {
+  font-family: var(--serif); font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900; line-height: 1.25; margin-bottom: 1rem;
+  color: var(--soil);
+}
+
+.hero-title em {
+  font-style: normal; color: var(--tide);
+}
+
+.hero-body {
+  font-size: 16px; line-height: 1.85; color: var(--muted);
+  max-width: 580px; margin-bottom: 2.5rem;
+}
+
+.hero-stats {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  padding-top: 1.5rem; border-top: 0.5px solid var(--border);
+}
+
+.stat-item { }
+.stat-num {
+  font-family: var(--serif); font-size: 28px; font-weight: 600;
+  color: var(--soil); display: block; line-height: 1;
+}
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* ── SECTION WRAPPER ── */
+.section {
+  max-width: 860px; margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+
+.section-title {
+  font-family: var(--serif); font-size: 22px; font-weight: 600;
+  color: var(--soil); margin-bottom: 0.4rem;
+}
+
+.section-sub {
+  font-size: 13px; color: var(--muted); margin-bottom: 2rem;
+}
+
+.divider {
+  border: none; border-top: 0.5px solid var(--border);
+  margin: 0 2rem 0;
+}
+
+/* ── ERA TABS ── */
+.era-tabs {
+  display: flex; gap: 0; overflow-x: auto;
+  scrollbar-width: none; border-bottom: 0.5px solid var(--border-strong);
+  margin-bottom: 0;
+}
+.era-tabs::-webkit-scrollbar { display: none; }
+
+.era-tab {
+  padding: 0.9rem 1.25rem; background: none; border: none;
+  font-family: var(--sans); font-size: 13px; color: var(--muted);
+  cursor: pointer; white-space: nowrap; border-bottom: 2.5px solid transparent;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.era-tab:hover { color: var(--ink); background: rgba(139,115,85,0.05); }
+.era-tab.active { color: var(--ink); font-weight: 500; }
+
+.era-year-label { font-size: 10px; display: block; margin-top: 2px; opacity: 0.65; }
+
+/* ── ERA CONTENT ── */
+.era-content { padding: 2rem 0; }
+
+.era-header {
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 1.25rem; align-items: start;
+  padding-bottom: 1.5rem; margin-bottom: 1.5rem;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.era-glyph {
+  width: 52px; height: 52px;
+  border: 0.5px solid var(--border-strong);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; background: white; flex-shrink: 0;
+}
+
+.era-meta {}
+.era-period { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.era-name { font-family: var(--serif); font-size: 20px; font-weight: 600; line-height: 1.3; color: var(--soil); }
+.era-place { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+.quote-block {
+  border-left: 3px solid var(--reed);
+  padding: 0.9rem 1.25rem;
+  margin-bottom: 1.75rem;
+  background: rgba(196,168,130,0.08);
+  border-radius: 0 4px 4px 0;
+}
+.quote-source { font-size: 11px; color: var(--muted); margin-bottom: 0.4rem; letter-spacing: 0.05em; }
+.quote-text { font-family: var(--serif); font-size: 15px; line-height: 1.8; }
+
+.layer-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 12px; margin-bottom: 1.5rem;
+}
+
+.layer-card {
+  background: white; border: 0.5px solid var(--border);
+  border-radius: 8px; padding: 1rem 1.1rem;
+}
+
+.layer-tag {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 0.5rem;
+}
+
+.layer-main { font-size: 14px; line-height: 1.6; color: var(--ink); margin-bottom: 0.35rem; }
+.layer-detail { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+
+.forgotten-row {
+  padding: 0.8rem 1rem; border: 0.5px solid var(--border);
+  border-radius: 6px; background: rgba(139,115,85,0.04);
+}
+.forgotten-label { font-size: 11px; color: var(--muted); margin-bottom: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.forgotten-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.forgotten-chip {
+  font-size: 12px; color: var(--muted); padding: 3px 10px;
+  border: 0.5px solid var(--border-strong);
+  border-radius: 99px; background: white;
+  text-decoration: line-through; text-decoration-color: var(--reed);
+}
+
+/* ── TIMELINE ── */
+.timeline-track {
+  display: flex; align-items: center; gap: 0;
+  padding: 1.5rem 0 2.5rem;
+  overflow-x: auto; scrollbar-width: none;
+}
+.timeline-track::-webkit-scrollbar { display: none; }
+
+.tl-node {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 6px; cursor: pointer; flex-shrink: 0; padding: 0 4px;
+}
+.tl-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  background: var(--paper); transition: all 0.2s;
+}
+.tl-node:hover .tl-dot { background: var(--reed); border-color: var(--reed); }
+.tl-node.active .tl-dot { transform: scale(1.5); background: var(--mud); border-color: var(--mud); }
+.tl-label { font-size: 10px; color: var(--muted); white-space: nowrap; }
+
+.tl-line { flex: 1; height: 0.5px; background: var(--border-strong); min-width: 20px; }
+
+/* ── SPECIES VIEW ── */
+.species-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px; margin-bottom: 2rem;
+}
+
+.species-card {
+  background: white; border: 0.5px solid var(--border);
+  border-radius: 8px; padding: 1.1rem;
+  cursor: pointer; transition: all 0.2s;
+}
+.species-card:hover { border-color: var(--border-strong); background: var(--paper); }
+.species-card.active { border-width: 1.5px; }
+
+.species-icon {
+  width: 48px; height: 48px; margin-bottom: 0.75rem;
+}
+
+.species-name { font-family: var(--serif); font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+.species-latin { font-size: 11px; color: var(--muted); font-style: italic; margin-bottom: 0.5rem; }
+.species-status-chip {
+  display: inline-block; font-size: 11px; padding: 2px 8px;
+  border-radius: 99px; border: 0.5px solid;
+}
+
+.species-detail {
+  background: white; border: 0.5px solid var(--border);
+  border-radius: 8px; padding: 1.5rem 1.75rem;
+  margin-bottom: 1.5rem; display: none;
+}
+.species-detail.visible { display: block; }
+
+.species-voice {
+  font-family: var(--serif); font-size: 17px; line-height: 1.85;
+  color: var(--soil); margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid;
+  border-radius: 0 4px 4px 0;
+}
+
+.species-timeline {
+  display: flex; flex-direction: column; gap: 0;
+  border: 0.5px solid var(--border); border-radius: 6px; overflow: hidden;
+}
+
+.sp-era-row {
+  display: grid; grid-template-columns: 110px 1fr;
+  border-bottom: 0.5px solid var(--border);
+}
+.sp-era-row:last-child { border-bottom: none; }
+
+.sp-era-label {
+  padding: 0.7rem 0.9rem;
+  font-size: 12px; color: var(--muted);
+  border-right: 0.5px solid var(--border);
+  background: rgba(139,115,85,0.04);
+  display: flex; align-items: center;
+}
+
+.sp-era-event {
+  padding: 0.7rem 1rem; font-size: 13.5px; line-height: 1.6;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+.sp-status-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.population-bar-wrap {
+  margin-top: 1.25rem;
+  padding: 1rem 1.1rem; border: 0.5px solid var(--border);
+  border-radius: 6px; background: rgba(139,115,85,0.03);
+}
+.pop-label { font-size: 12px; color: var(--muted); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.pop-bars { display: flex; flex-direction: column; gap: 8px; }
+.pop-row { display: flex; align-items: center; gap: 10px; }
+.pop-era { font-size: 12px; color: var(--muted); width: 80px; flex-shrink: 0; }
+.pop-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.pop-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+.pop-val { font-size: 12px; color: var(--muted); width: 50px; text-align: right; flex-shrink: 0; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 0.5px solid var(--border-strong);
+  padding: 2rem;
+  text-align: center;
+  font-size: 12px; color: var(--muted);
+}
+
+/* ── FADE ANIMATION ── */
+.fade { animation: fadeUp 0.3s ease; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── VIEWS ── */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  nav { padding: 0 1rem; }
+  .hero { padding: 3rem 1rem 2rem; }
+  .section { padding: 0 1rem 3rem; }
+  .mode-btn { padding: 0.7rem 0.75rem; font-size: 12px; }
+  .divider { margin: 0 1rem 0; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">曾文溪口</div>
+  <div class="nav-modes">
+    <button class="mode-btn active" onclick="switchView('era')" id="btn-era">時代視角</button>
+    <button class="mode-btn" onclick="switchView('species')" id="btn-species">物種視角</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">台南 · 曾文溪口濕地 · 生態殖民史</div>
+  <h1 class="hero-title">這片土地，<br><em>被誰看見？</em></h1>
+  <p class="hero-body">同一塊泥灘地，荷蘭人看見鹿群，西拉雅人聽見海潮，日本學者帶走標本，保育員守候黑面琵鷺。每一個時代都有自己的「看見」，也有自己的「遺忘」。選擇一個視角，進入這片土地的多重記憶。</p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">400+</span>
+      <span class="stat-label">年的記錄歷史</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">6,603</span>
+      <span class="stat-label">隻黑面琵鷺（2024）</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">0</span>
+      <span class="stat-label">隻梅花鹿（野外族群，現今）</span>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══ ERA VIEW ══ -->
+<div class="view active" id="view-era">
+  <div class="section">
+    <div style="padding-top:2rem">
+      <p class="section-title">時代視角</p>
+      <p class="section-sub">選擇時代，看這塊土地如何被不同政權與知識體系命名、開發、遺忘。</p>
+    </div>
+
+    <div class="era-tabs" id="eraTabs"></div>
+
+    <div id="eraContent" class="era-content"></div>
+
+    <div class="timeline-track" id="timelineTrack"></div>
+  </div>
+</div>
+
+<!-- ══ SPECIES VIEW ══ -->
+<div class="view" id="view-species">
+  <div class="section">
+    <div style="padding-top:2rem">
+      <p class="section-title">物種視角</p>
+      <p class="section-sub">讓這片濕地的非人類居民說話——牠們目擊了整部殖民史，卻從未被納入歷史書寫。</p>
+    </div>
+
+    <div class="species-grid" id="speciesGrid"></div>
+    <div class="species-detail" id="speciesDetail"></div>
+  </div>
+</div>
+
+<footer>
+  資料參考：黑面琵鷺保育學會、台灣歷史博物館、嘉南農田水利會史料
+</footer>
+
+<script>
+/* ═══════════════════════════════
+   DATA
+═══════════════════════════════ */
+
+const eras = [
+  {
+    id: 'siraya', label: '西拉雅', year: '～1624', glyph: '🌊', accent: '#4A7C7E',
+    land: '尚未命名的河口沙洲',
+    quote: { src: '西拉雅族口傳，河口捕魚知識', text: '海水退了，我們就下去撿牡蠣。漲潮前，鶴群會先離開——那是魚來的訊號。' },
+    layers: [
+      { tag: '人與地', color: '#4A7C7E', main: '新港社、蕭壟社族人沿曾文溪口活動，以潮汐判斷捕魚時機', detail: '不以土地「所有」為概念，以季節性移動使用為主' },
+      { tag: '生態', color: '#4A7C7E', main: '梅花鹿、水鹿群分布沿海草原，台灣黑熊偶見於林緣', detail: '河口泥灘為全年魚類產卵場，候鳥冬季大量停棲' },
+      { tag: '知識形式', color: '#4A7C7E', main: '地名描述地景特徵：「水流之處」「蘆葦叢中」', detail: '無固定文字記錄，知識存於歌謠、儀式與口傳' },
+    ],
+    forgotten: ['西拉雅語地名', '潮汐漁業知識', '獵鹿祭儀路線', '河口草原地景'],
+  },
+  {
+    id: 'dutch', label: '荷蘭殖民', year: '1624–1662', glyph: '⚓', accent: '#5B8DB5',
+    land: 'Taioan — 鹿皮輸出港',
+    quote: { src: '荷蘭東印度公司帳冊，1638年', text: '本年度輸出梅花鹿皮 151,400 張。河口草地尚存鹿群，惟已較五年前稀少。' },
+    layers: [
+      { tag: '殖民視角', color: '#5B8DB5', main: '河口被評估為「鹿資源豐饒」的貿易據點', detail: '每年輸出鹿皮數量超過十萬張，為主要商業物種' },
+      { tag: '生態衝擊', color: '#5B8DB5', main: '梅花鹿族群在50年內從數十萬頭銳減至難以目視', detail: '外來豬、牛傳入，競爭原生草原空間' },
+      { tag: '知識轉換', color: '#5B8DB5', main: '荷蘭地圖首次以歐洲座標系記錄曾文溪口地形', detail: '西拉雅獵人被整合為僱傭勞動力，傳統知識被工具化' },
+    ],
+    forgotten: ['梅花鹿原生族群', '河口草原地景', '西拉雅獵場邊界'],
+  },
+  {
+    id: 'qing', label: '清朝移民', year: '1683–1895', glyph: '🌾', accent: '#8B7355',
+    land: '曾文溪畔 — 水田新墾地',
+    quote: { src: '台灣府志，乾隆年間', text: '此地原係草埔荒地，近年漢人招佃開墾，插秧種稻，已成熟田數百甲。' },
+    layers: [
+      { tag: '土地改造', color: '#8B7355', main: '漢移民將河口草原與沼澤大規模開墾為水田', detail: '圳渠系統改變水文，原生植被被農作物取代' },
+      { tag: '物種引入', color: '#8B7355', main: '水牛、家鴨、鯉魚大量引入，成為新生態系主角', detail: '部分外來植物隨稻米傳入，日後形成外來種問題' },
+      { tag: '原住民邊緣化', color: '#8B7355', main: '西拉雅族人逐漸移居山區或被漢化，河口知識中斷', detail: '「平埔族」被清朝戶籍系統重新分類，語言與地名加速消失' },
+    ],
+    forgotten: ['西拉雅族河口記憶', '原生草原植被', '梅花鹿最後棲地'],
+  },
+  {
+    id: 'japanese', label: '日治博物學', year: '1895–1945', glyph: '🔬', accent: '#7B6FA0',
+    land: '曾文溪口 — 學術調查樣區',
+    quote: { src: '台灣總督府博物館調查報告，1928年', text: '本樣區記錄鳥類 143 種，其中冬候鳥佔 61%。河口泥灘為全島最重要之水鳥棲息地。' },
+    layers: [
+      { tag: '科學命名', color: '#7B6FA0', main: '日本博物學者首次系統記錄曾文溪口鳥類、魚類、底棲生物', detail: '許多物種以日本學者姓名命名，原住民名稱未被收錄' },
+      { tag: '基礎設施', color: '#7B6FA0', main: '嘉南大圳（1930年）大幅改變曾文溪流量與泥沙輸送', detail: '水利設施增加農業產出，卻使河口淡鹽水比例改變' },
+      { tag: '知識殖民', color: '#7B6FA0', main: '生態資料被系統收集並運回日本，台灣成為數據來源地', detail: '西拉雅族的生態知識未被納入學術記錄體系' },
+    ],
+    forgotten: ['西拉雅語物種名稱', '傳統魚汛週期知識', '原生底棲群落基線'],
+  },
+  {
+    id: 'modern', label: '當代保育', year: '1988–今', glyph: '🦅', accent: '#3A7D44',
+    land: '台江國家公園 — 黑面琵鷺保護區',
+    quote: { src: '黑面琵鷺保育學會，2024年調查報告', text: '今年度黑面琵鷺全球調查數量：6,603 隻。曾文溪口族群佔全球約 28%。這裡是最後的家。' },
+    layers: [
+      { tag: '生態指標', color: '#3A7D44', main: '黑面琵鷺從1990年代的不足300隻，恢復至今逾6,000隻', detail: '曾文溪口每年11月至翌年3月為最大度冬族群' },
+      { tag: '遺忘的代價', color: '#3A7D44', main: '1990年代開發計畫曾威脅核心棲地，保育組織長期抗議後暫停', detail: '外來種互花米草持續入侵泥灘，威脅底棲食物鏈' },
+      { tag: '知識重建', color: '#3A7D44', main: '近年學者嘗試重新收集西拉雅族口傳，整合傳統生態知識', detail: '「台江國家公園」部分恢復荷蘭時代地名，西拉雅語名仍缺席' },
+    ],
+    forgotten: ['互花米草入侵前泥灘植相', '西拉雅族現代文化記憶', '嘉南大圳建設徵地歷史'],
+  },
+];
+
+const species = [
+  {
+    id: 'deer', name: '梅花鹿', latin: 'Cervus nippon taiouanus',
+    icon: `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="24" cy="30" rx="11" ry="8" fill="#C4A882" opacity="0.3"/>
+      <ellipse cx="24" cy="30" rx="11" ry="8" stroke="#8B7355" stroke-width="1.2" fill="none"/>
+      <circle cx="24" cy="18" r="7" fill="#C4A882" opacity="0.3"/>
+      <circle cx="24" cy="18" r="7" stroke="#8B7355" stroke-width="1.2" fill="none"/>
+      <line x1="20" y1="11" x2="17" y2="5" stroke="#8B7355" stroke-width="1.2"/>
+      <line x1="17" y1="5" x2="14" y2="3" stroke="#8B7355" stroke-width="1.2"/>
+      <line x1="17" y1="5" x2="15" y2="7" stroke="#8B7355" stroke-width="1.2"/>
+      <line x1="28" y1="11" x2="31" y2="5" stroke="#8B7355" stroke-width="1.2"/>
+      <line x1="31" y1="5" x2="34" y2="3" stroke="#8B7355" stroke-width="1.2"/>
+      <line x1="31" y1="5" x2="33" y2="7" stroke="#8B7355" stroke-width="1.2"/>
+      <line x1="16" y1="38" x2="15" y2="45" stroke="#8B7355" stroke-width="1.2"/>
+      <line x1="20" y1="38" x2="20" y2="45" stroke="#8B7355" stroke-width="1.2"/>
+      <line x1="28" y1="38" x2="28" y2="45" stroke="#8B7355" stroke-width="1.2"/>
+      <line x1="32" y1="38" x2="33" y2="45" stroke="#8B7355" stroke-width="1.2"/>
+      <circle cx="22" cy="17" r="1.5" fill="#8B7355"/>
+    </svg>`,
+    accent: '#C4A882', statusColor: '#E24B4A', statusBg: '#FCEBEB',
+    status: '野外已滅絕', statusLabel: '野外族群滅絕',
+    voice: `我曾是這片草原最多的生命。\n\n西拉雅人殺我，但他們只取所需，獵季之後讓草原喘息。荷蘭人來了，他們記錄的不是我的腳步，而是我的皮值多少錢。151,400 張——那是他們在 1638 年一整年帶走的同伴。\n\n我的族群數量從數十萬頭，在不到一個世紀內跌落到幾乎為零。漢人來了，草原變成水田，我連棲身之地都沒有了。\n\n今天，在這片我曾經最熟悉的土地上，你再也看不到我的野外族群。只有博物館裡有我的骨骼標本，和荷蘭帳冊裡的數字。`,
+    timeline: [
+      { era: '西拉雅時代', status: 'safe', color: '#3A7D44', event: '數十萬頭遍布台灣西部草原，西拉雅族以祭祀規範獵捕量' },
+      { era: '荷蘭殖民', status: 'danger', color: '#E24B4A', event: '每年輸出超過十萬張鹿皮，族群數量快速崩潰' },
+      { era: '清朝開墾', status: 'critical', color: '#E24B4A', event: '草原大規模開墾為水田，棲地幾乎消失' },
+      { era: '日治時期', status: 'gone', color: '#888', event: '野外族群幾乎滅絕，僅見零星個體' },
+      { era: '當代', status: 'gone', color: '#888', event: '野外族群滅絕，圈養保育計畫存續，無法野放' },
+    ],
+    popBars: [
+      { era: '1600年代', pct: 100, val: '數十萬頭' },
+      { era: '1650年代', pct: 55, val: '銳減中' },
+      { era: '1700年代', pct: 12, val: '少數殘存' },
+      { era: '1900年代', pct: 2, val: '近滅絕' },
+      { era: '現今', pct: 0, val: '野外 0' },
+    ],
+  },
+  {
+    id: 'spoonbill', name: '黑面琵鷺', latin: 'Platalea minor',
+    icon: `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="24" cy="32" rx="10" ry="7" fill="#B8D4D8" opacity="0.4"/>
+      <ellipse cx="24" cy="32" rx="10" ry="7" stroke="#4A7C7E" stroke-width="1.2" fill="none"/>
+      <path d="M24 25 C22 20 20 16 24 12 C28 16 26 20 24 25Z" fill="#B8D4D8" opacity="0.4" stroke="#4A7C7E" stroke-width="1.2"/>
+      <path d="M24 12 C22 8 18 6 15 8" stroke="#4A7C7E" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <ellipse cx="14.5" cy="9" rx="3" ry="1.5" fill="#8B7355" opacity="0.6" transform="rotate(-20 14.5 9)"/>
+      <line x1="20" y1="39" x2="19" y2="45" stroke="#4A7C7E" stroke-width="1.2"/>
+      <line x1="24" y1="39" x2="24" y2="45" stroke="#4A7C7E" stroke-width="1.2"/>
+      <line x1="28" y1="39" x2="29" y2="45" stroke="#4A7C7E" stroke-width="1.2"/>
+    </svg>`,
+    accent: '#4A7C7E', statusColor: '#185FA5', statusBg: '#E6F1FB',
+    status: '瀕危 — 恢復中', statusLabel: '全球僅約6,600隻',
+    voice: `每年冬天，我從朝鮮半島的無人島飛來這裡。\n\n曾文溪口的泥灘濕軟，魚多，潮汐規律。西拉雅人在這裡捕魚時，一定常常看見我。但他們沒有記錄我的名字——至少沒有被保留下來的記錄。\n\n日本博物學者在1920年代記錄了我的存在，但他們更在意我的標本，而不是我的族群狀況。1990年代，這片泥灘差點被開發成工業區。那時全球只剩不到三百隻像我這樣的鳥。\n\n保育運動救了這裡。今天這裡的族群達到全球四分之一以上。但我每年還是得飛越大半個東亞才能找到這塊僅剩的棲地。`,
+    timeline: [
+      { era: '西拉雅時代', status: 'safe', color: '#3A7D44', event: '在濕地穩定棲息，西拉雅族活動未影響族群' },
+      { era: '荷蘭至清朝', status: 'safe', color: '#8B9E8E', event: '棲地未直接受影響，農業開墾使泥灘邊緣化' },
+      { era: '日治時期', status: 'safe', color: '#3A7D44', event: '首次被科學記錄，嘉南大圳改變部分水文' },
+      { era: '1980–90年代', status: 'danger', color: '#E24B4A', event: '全球族群崩潰至不足300隻，棲地開發威脅' },
+      { era: '當代', status: 'recover', color: '#3A7D44', event: '保育成效顯著，全球逾6,600隻，曾文溪口為最大度冬地' },
+    ],
+    popBars: [
+      { era: '1960年代', pct: 40, val: '估計約500隻' },
+      { era: '1990年代', pct: 14, val: '不足300隻' },
+      { era: '2000年代', pct: 28, val: '約1,000隻' },
+      { era: '2010年代', pct: 60, val: '約3,000隻' },
+      { era: '2024年', pct: 100, val: '6,603隻' },
+    ],
+  },
+  {
+    id: 'oyster', name: '牡蠣', latin: 'Crassostrea gigas',
+    icon: `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 28 C10 22 12 15 20 12 C28 10 38 14 38 22 C38 30 32 36 24 36 C16 36 12 33 12 28Z" fill="#D3D1C7" opacity="0.4"/>
+      <path d="M12 28 C10 22 12 15 20 12 C28 10 38 14 38 22 C38 30 32 36 24 36 C16 36 12 33 12 28Z" stroke="#5F5E5A" stroke-width="1.2" fill="none"/>
+      <path d="M16 26 C15 22 17 17 22 15" stroke="#5F5E5A" stroke-width="0.8" stroke-linecap="round"/>
+      <path d="M20 30 C18 26 19 21 23 19" stroke="#5F5E5A" stroke-width="0.8" stroke-linecap="round"/>
+      <ellipse cx="24" cy="26" rx="5" ry="3.5" fill="#B8D4D8" opacity="0.6" stroke="#4A7C7E" stroke-width="0.8"/>
+    </svg>`,
+    accent: '#5F5E5A', statusColor: '#3B6D11', statusBg: '#EAF3DE',
+    status: '人工養殖主導', statusLabel: '原生灘地牡蠣減少',
+    voice: `我附著在石頭上，過濾海水，把泥沙沉澱成清澈。\n\n西拉雅人採集我，但他們知道要留下夠多讓我繁殖。那時候我的殼在村落旁堆成小山——那些貝塚現在已被列為考古遺址。\n\n嘉南大圳修好之後，河水變少了，淡鹹水的比例改變了。我能生存的泥灘縮小了。後來人們發明了竹架養殖，把我從泥灘「搬」進了棚架。我們還在這裡，但不是以前那種方式了。\n\n現在的問題是互花米草。那種外來植物長得比我快，把我能生存的光滑泥灘逐漸覆蓋。沒有人覺得這是緊急事態，直到某一天泥灘消失了。`,
+    timeline: [
+      { era: '西拉雅時代', status: 'safe', color: '#3A7D44', event: '大量分布於曾文溪口潮間帶，西拉雅族採集，留有貝塚遺址' },
+      { era: '清朝開墾', status: 'safe', color: '#8B9E8E', event: '農業水利改變水文，原生牡蠣仍存在但範圍縮小' },
+      { era: '日治時期', status: 'change', color: '#BA7517', event: '嘉南大圳（1930年）顯著改變淡鹹水比，竹棚養殖興起' },
+      { era: '戰後至今', status: 'change', color: '#BA7517', event: '工業化養殖大規模擴張，野生灘地族群持續減少' },
+      { era: '當代威脅', status: 'danger', color: '#E24B4A', event: '互花米草入侵潮間帶，天然牡蠣棲地面積持續縮減' },
+    ],
+    popBars: [
+      { era: '西拉雅時代', pct: 100, val: '豐富' },
+      { era: '清朝', pct: 80, val: '稍減' },
+      { era: '日治後', pct: 55, val: '養殖化' },
+      { era: '1980年代', pct: 35, val: '工業化' },
+      { era: '現今野生', pct: 20, val: '持續減少' },
+    ],
+  },
+  {
+    id: 'spartina', name: '互花米草', latin: 'Spartina alterniflora',
+    icon: `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="24" y1="44" x2="24" y2="10" stroke="#639922" stroke-width="1.5"/>
+      <path d="M24 30 C20 26 15 25 12 22" stroke="#639922" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+      <path d="M24 22 C28 18 33 17 36 14" stroke="#639922" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+      <path d="M24 36 C21 33 17 33 14 31" stroke="#639922" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+      <path d="M24 14 C27 11 30 9 32 7" stroke="#639922" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+      <ellipse cx="24" cy="9" rx="2" ry="5" fill="#97C459" opacity="0.6" stroke="#639922" stroke-width="0.8"/>
+    </svg>`,
+    accent: '#639922', statusColor: '#993C1D', statusBg: '#FAECE7',
+    status: '外來種入侵', statusLabel: '1990年代引入後蔓延',
+    voice: `我不是這片土地的孩子。\n\n我來自北美洲，被人類帶過來是為了「護堤」——1990年代，有人把我的種子撒在曾文溪口，說我能固化泥灘、防止侵蝕。\n\n沒有人問過牡蠣、水鳥，和原本住在這裡的植物的意見。\n\n我長得很快，比任何原生鹽沼植物都快。我的根讓泥灘變硬，讓光滑的潮間帶變成密草叢——黑面琵鷺沒有辦法在我這裡找到魚，牡蠣沒有辦法附著在我的底部。\n\n人類花了很多年才開始認真對待我的問題。現在有人在挖除我，但每次颱風過後，我的種子就從上游衝下來，重新開始。\n\n我是這片土地五百年殖民史留下的最新一道傷口。`,
+    timeline: [
+      { era: '原生生態', status: 'safe', color: '#3A7D44', event: '台灣無互花米草，潮間帶由本土鹽沼植物與光滑泥灘主導' },
+      { era: '1990年代引入', status: 'danger', color: '#E24B4A', event: '以「護堤」名義引入，政府主動種植於多處河口' },
+      { era: '2000年代', status: 'danger', color: '#E24B4A', event: '快速蔓延，覆蓋曾文溪口超過400公頃潮間帶' },
+      { era: '2010年代防治', status: 'change', color: '#BA7517', event: '政府展開清除工作，但颱風後反覆擴散，成效有限' },
+      { era: '當代', status: 'danger', color: '#E24B4A', event: '仍為最嚴重的外來種威脅，被列為台灣百大外來入侵種' },
+    ],
+    popBars: [
+      { era: '1989年前', pct: 0, val: '不存在' },
+      { era: '1995年', pct: 15, val: '初始擴散' },
+      { era: '2005年', pct: 60, val: '快速蔓延' },
+      { era: '2015年', pct: 80, val: '大規模覆蓋' },
+      { era: '現今', pct: 70, val: '防治中' },
+    ],
+  },
+];
+
+/* ═══════════════════════════════
+   STATE
+═══════════════════════════════ */
+let currentEra = 0;
+let currentSpecies = null;
+
+/* ═══════════════════════════════
+   VIEW SWITCH
+═══════════════════════════════ */
+function switchView(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  document.getElementById('btn-' + view).classList.add('active');
+}
+
+/* ═══════════════════════════════
+   ERA RENDERING
+═══════════════════════════════ */
+function renderEraTabs() {
+  const container = document.getElementById('eraTabs');
+  container.innerHTML = eras.map((e, i) => `
+    <button class="era-tab ${i === currentEra ? 'active' : ''}"
+      style="${i === currentEra ? `border-bottom-color:${e.accent}` : ''}"
+      onclick="switchEra(${i})">
+      ${e.label}
+      <span class="era-year-label">${e.year}</span>
+    </button>
+  `).join('');
+}
+
+function renderEraContent() {
+  const e = eras[currentEra];
+  const container = document.getElementById('eraContent');
+  container.innerHTML = `<div class="fade">
+    <div class="era-header">
+      <div class="era-glyph">${e.glyph}</div>
+      <div class="era-meta">
+        <div class="era-period">${e.year}</div>
+        <div class="era-name">${e.label}</div>
+        <div class="era-place">${e.land}</div>
+      </div>
+    </div>
+    <div class="quote-block" style="border-left-color:${e.accent}">
+      <div class="quote-source">${e.quote.src}</div>
+      <div class="quote-text">「${e.quote.text}」</div>
+    </div>
+    <div class="layer-grid">
+      ${e.layers.map(l => `
+        <div class="layer-card">
+          <div class="layer-tag" style="color:${l.color}">${l.tag}</div>
+          <div class="layer-main">${l.main}</div>
+          <div class="layer-detail">${l.detail}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="forgotten-row">
+      <div class="forgotten-label">這個時代遺忘了……</div>
+      <div class="forgotten-chips">
+        ${e.forgotten.map(f => `<span class="forgotten-chip">${f}</span>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderTimeline() {
+  const container = document.getElementById('timelineTrack');
+  let html = '';
+  eras.forEach((e, i) => {
+    html += `<div class="tl-node ${i === currentEra ? 'active' : ''}" onclick="switchEra(${i})">
+      <div class="tl-dot" style="${i === currentEra ? `background:${e.accent};border-color:${e.accent}` : ''}"></div>
+      <div class="tl-label">${e.year.split('–')[0].replace('～','')}</div>
+    </div>`;
+    if (i < eras.length - 1) html += `<div class="tl-line"></div>`;
+  });
+  container.innerHTML = html;
+}
+
+function switchEra(i) {
+  currentEra = i;
+  renderEraTabs();
+  renderEraContent();
+  renderTimeline();
+}
+
+/* ═══════════════════════════════
+   SPECIES RENDERING
+═══════════════════════════════ */
+function renderSpeciesGrid() {
+  const container = document.getElementById('speciesGrid');
+  container.innerHTML = species.map((s, i) => `
+    <div class="species-card ${currentSpecies === i ? 'active' : ''}"
+      style="${currentSpecies === i ? `border-color:${s.accent}` : ''}"
+      onclick="selectSpecies(${i})">
+      <svg class="species-icon" viewBox="0 0 48 48">${s.icon.replace(/<svg[^>]*>/,'').replace('</svg>','')}</svg>
+      <div class="species-name" style="${currentSpecies === i ? `color:${s.accent}` : ''}">${s.name}</div>
+      <div class="species-latin">${s.latin}</div>
+      <span class="species-status-chip"
+        style="color:${s.statusColor};border-color:${s.statusColor};background:${s.statusBg}">
+        ${s.status}
+      </span>
+    </div>
+  `).join('');
+}
+
+function renderSpeciesDetail(idx) {
+  const s = species[idx];
+  const detail = document.getElementById('speciesDetail');
+  const voiceLines = s.voice.split('\n\n').map(p => `<p style="margin-bottom:1rem">${p}</p>`).join('');
+
+  detail.innerHTML = `<div class="fade">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:0.5px solid var(--border)">
+      <svg style="width:52px;height:52px;flex-shrink:0" viewBox="0 0 48 48">
+        ${s.icon.replace(/<svg[^>]*>/,'').replace('</svg>','')}
+      </svg>
+      <div>
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">${s.latin}</div>
+        <div style="font-family:var(--serif);font-size:22px;font-weight:600;color:var(--soil)">${s.name}</div>
+        <span class="species-status-chip" style="color:${s.statusColor};border-color:${s.statusColor};background:${s.statusBg};margin-top:4px;display:inline-block">${s.statusLabel}</span>
+      </div>
+    </div>
+
+    <div class="species-voice" style="border-left-color:${s.accent}">${voiceLines}</div>
+
+    <div style="margin-bottom:1.5rem">
+      <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem">各時代處境</div>
+      <div class="species-timeline">
+        ${s.timeline.map(t => `
+          <div class="sp-era-row">
+            <div class="sp-era-label">${t.era}</div>
+            <div class="sp-era-event">
+              <span class="sp-status-dot" style="background:${t.color}"></span>
+              ${t.event}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="population-bar-wrap">
+      <div class="pop-label">族群變化趨勢</div>
+      <div class="pop-bars">
+        ${s.popBars.map(b => `
+          <div class="pop-row">
+            <div class="pop-era">${b.era}</div>
+            <div class="pop-track">
+              <div class="pop-fill" style="width:${b.pct}%;background:${s.accent}"></div>
+            </div>
+            <div class="pop-val">${b.val}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </div>`;
+
+  detail.classList.add('visible');
+  detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function selectSpecies(idx) {
+  if (currentSpecies === idx) {
+    currentSpecies = null;
+    document.getElementById('speciesDetail').classList.remove('visible');
+    renderSpeciesGrid();
+    return;
+  }
+  currentSpecies = idx;
+  renderSpeciesGrid();
+  renderSpeciesDetail(idx);
+}
+
+/* ═══════════════════════════════
+   INIT
+═══════════════════════════════ */
+renderEraTabs();
+renderEraContent();
+renderTimeline();
+renderSpeciesGrid();
+</script>
+</body>
+</html>
